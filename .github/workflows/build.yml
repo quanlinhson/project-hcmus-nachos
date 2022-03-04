@@ -24,9 +24,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Make Depend
-      run: cd NachOS-4.0/code/build.linux && make depend
-      
-    - name: Make C++
-      run: cd NachOS-4.0/code/build.linux && make
+    - name: Make NachOS
+      run: cd NachOS-4.0/code/build.linux && make depend && make
       
