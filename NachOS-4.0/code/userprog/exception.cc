@@ -66,7 +66,9 @@ void ExceptionHandler(ExceptionType which)
 	case OverflowException:
 	case IllegalInstrException:
 	case NumExceptionTypes:
+		DEBUG(dbgSys, "Runtime Error\n");
 		SysHalt();
+		ASSERTNOTREACHED();
 		break;
 
 	case SyscallException:
