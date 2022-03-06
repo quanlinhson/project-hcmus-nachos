@@ -66,7 +66,7 @@ void ExceptionHandler(ExceptionType which)
 	case OverflowException:
 	case IllegalInstrException:
 	case NumExceptionTypes:
-		Halt();
+		SysHalt();
 		break;
 
 	case SyscallException:
