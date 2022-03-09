@@ -36,6 +36,7 @@
 #define SC_ThreadJoin   15
 
 #define SC_ReadChar 18
+#define SC_PrintChar 19
 
 #define SC_Add		42
 
@@ -108,6 +109,7 @@ typedef int OpenFileId;
  */
 
 char ReadChar();
+char PrintChar();
 #define ConsoleInput	0  
 #define ConsoleOutput	1  
  

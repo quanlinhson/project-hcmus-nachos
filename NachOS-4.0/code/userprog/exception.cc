@@ -25,6 +25,7 @@
 #include "main.h"
 #include "syscall.h"
 #include "ksyscall.h"
+#include "synchconsole.h"
 //----------------------------------------------------------------------
 // ExceptionHandler
 // 	Entry point into the Nachos kernel.  Called when a user program
@@ -58,6 +59,7 @@ void IncreasePC()
 void ExceptionHandler(ExceptionType which)
 {
 	int type = kernel->machine->ReadRegister(2);
+	
 
 	DEBUG(dbgSys, "Received Exception " << which << " type: " << type << "\n");
 
@@ -117,6 +119,41 @@ void ExceptionHandler(ExceptionType which)
 
 			ASSERTNOTREACHED();
 
+			break;
+		case SC_ReadChar:
+			DEBUG(dbgSys, "Read a char:\n");
+			int maxBytes = 255;
+			char* buffer = new char[255];
+			int numBytes = ConsoleInput->GetChar();
+
+			if(numBytes > 1) //Neu nhap nhieu hon 1 ky tu thi khong hop le
+			{
+				printf("Chi duoc nhap duy nhat 1 ky tu!");
+				DEBUG('a', "\nERROR: Chi duoc nhap duy nhat 1 ky tu!");
+				kernel->machine->WriteRegister(2, 0);
+			}
+			else if(numBytes == 0) //Ky tu rong
+			{
+				printf("Ky tu rong!");
+				DEBUG('a', "\nERROR: Ky tu rong!");
+				kernel->machine->WriteRegister(2, 0);
+			}
+			else
+			{
+				//Chuoi vua lay co dung 1 ky tu, lay ky tu o index = 0, return vao thanh ghi R2
+				char c = ConsoleInput->GetChar();
+				kernel->machine->WriteRegister(2, c);
+			}
+
+			delete buffer;
+			IncreasePC();
+			return;
+			ASSERTNOTREACHED();
+			break;
+		case SC_PrintChar:
+			char ch;
+			ch = (char)kernel->machine->ReadRegister(4);
+			ConsoleOutput->PutChar(ch);
 			break;
 
 		default:
