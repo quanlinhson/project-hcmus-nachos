@@ -35,6 +35,8 @@
 #define SC_ThreadExit   14
 #define SC_ThreadJoin   15
 
+#define SC_ReadChar 18
+
 #define SC_Add		42
 
 #ifndef IN_ASM
@@ -105,6 +107,7 @@ typedef int OpenFileId;
  * the console device.
  */
 
+char ReadChar();
 #define ConsoleInput	0  
 #define ConsoleOutput	1  
  
